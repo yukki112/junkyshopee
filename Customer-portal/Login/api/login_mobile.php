@@ -10,64 +10,68 @@ header('Content-Type: application/json; charset=UTF-8');
 
 require_once '../db_connection.php';
 
-
+// Handle preflight OPTIONS request
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     http_response_code(200);
     exit;
 }
 
-
+// Read input (JSON or form encoded)
 $input = file_get_contents('php://input');
 $data = json_decode($input, true);
 
-$email = '';
+$loginInput = '';
 $password = '';
 
-if (is_array($data) && isset($data['email']) && isset($data['password'])) {
-    $email = trim($data['email']);
+// Accept both raw JSON and form-data
+if (is_array($data) && isset($data['loginInput']) && isset($data['password'])) {
+    $loginInput = trim($data['loginInput']);
     $password = trim($data['password']);
-} elseif (isset($_POST['email']) && isset($_POST['password'])) {
-    $email = trim($_POST['email']);
+} elseif (isset($_POST['loginInput']) && isset($_POST['password'])) {
+    $loginInput = trim($_POST['loginInput']);
     $password = trim($_POST['password']);
 }
 
 // Validate required fields
-if (empty($email) || empty($password)) {
-    echo json_encode(['success' => false, 'message' => 'Email and password required']);
+if (empty($loginInput) || empty($password)) {
+    echo json_encode(['success' => false, 'message' => 'Email/Username and password required']);
     exit;
 }
 
-// ✅ Match the actual structure of your `users` table
-$stmt = $conn->prepare("SELECT id, first_name, last_name, email, password_hash, is_verified, user_type, is_admin FROM users WHERE email = ?");
+// Query: allow login with email OR username
+$stmt = $conn->prepare("SELECT id, first_name, last_name, email, username, password_hash, is_verified, user_type, is_admin 
+                        FROM users 
+                        WHERE email = ? OR username = ?");
 if (!$stmt) {
     echo json_encode(['success' => false, 'message' => 'Database prepare failed: ' . $conn->error]);
     exit;
 }
 
-$stmt->bind_param("s", $email);
+$stmt->bind_param("ss", $loginInput, $loginInput);
 $stmt->execute();
 $result = $stmt->get_result();
 
+// User not found
 if (!$result || $result->num_rows === 0) {
-    echo json_encode(['success' => false, 'message' => 'Invalid email or password']);
+    echo json_encode(['success' => false, 'message' => 'Invalid email/username or password']);
     exit;
 }
 
 $user = $result->fetch_assoc();
 
-
+// Validate password
 if (!password_verify($password, $user['password_hash'])) {
-    echo json_encode(['success' => false, 'message' => 'Invalid email or password']);
+    echo json_encode(['success' => false, 'message' => 'Invalid email/username or password']);
     exit;
 }
 
-
+// Check verification
 if (isset($user['is_verified']) && !$user['is_verified']) {
     echo json_encode(['success' => false, 'message' => 'Account not verified']);
     exit;
 }
 
-
+// ✅ SUCCESS RESPONSE
 echo json_encode([
     'success' => true,
     'message' => 'Login successful',
@@ -76,9 +80,10 @@ echo json_encode([
         'first_name' => $user['first_name'],
         'last_name' => $user['last_name'],
         'email' => $user['email'],
+        'username' => $user['username'],
         'user_type' => $user['user_type'],
         'is_admin' => (int)$user['is_admin']
     ]
 ]);
+
 exit;
-?>
