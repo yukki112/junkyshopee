@@ -34,6 +34,7 @@ if (is_array($data) && isset($data['loginInput']) && isset($data['password'])) {
 
 // Validate required fields
 if (empty($loginInput) || empty($password)) {
+    http_response_code(400);
     echo json_encode(['success' => false, 'message' => 'Email/Username and password required']);
     exit;
 }
@@ -43,6 +44,7 @@ $stmt = $conn->prepare("SELECT id, first_name, last_name, email, username, passw
                         FROM users 
                         WHERE email = ? OR username = ?");
 if (!$stmt) {
+    http_response_code(500);
     echo json_encode(['success' => false, 'message' => 'Database prepare failed: ' . $conn->error]);
     exit;
 }
@@ -53,6 +55,7 @@ $result = $stmt->get_result();
 
 // User not found
 if (!$result || $result->num_rows === 0) {
+    http_response_code(401);
     echo json_encode(['success' => false, 'message' => 'Invalid email/username or password']);
     exit;
 }
@@ -61,12 +64,14 @@ $user = $result->fetch_assoc();
 
 // Validate password
 if (!password_verify($password, $user['password_hash'])) {
+    http_response_code(401);
     echo json_encode(['success' => false, 'message' => 'Invalid email/username or password']);
     exit;
 }
 
 // Check verification
 if (isset($user['is_verified']) && !$user['is_verified']) {
+    http_response_code(403);
     echo json_encode(['success' => false, 'message' => 'Account not verified']);
     exit;
 }
@@ -86,4 +91,6 @@ echo json_encode([
     ]
 ]);
 
+$stmt->close();
+$conn->close();
 exit;
