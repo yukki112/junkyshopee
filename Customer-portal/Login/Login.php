@@ -21,7 +21,7 @@ use PHPMailer\PHPMailer\Exception;
 
 define('FB_APP_ID', '1448117463050692');
 define('FB_APP_SECRET', '947a22c909084c5a3c57a9c66b5dc8c7');
-define('FB_REDIRECT_URI', 'https://junkvalue.xo.je/Customer-portal/Login/Login.php');
+define('FB_REDIRECT_URI', 'https://frsm.qcprotektado.com/Customer-portal/Login/Login.php');
 
 define('RECAPTCHA_SITE_KEY', '6LeYjuorAAAAAPbR8cTtzeaLz05h_yRz2sEfsqfO');
 define('RECAPTCHA_SECRET_KEY', '6LeYjuorAAAAAGS0RH6BiwKoS-muwQyzdzFS121K');
@@ -401,7 +401,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['forgot_password'])) {
                     $mail->setFrom('Stephenviray12@gmail.com', 'JunkValue');
                     $mail->addAddress($email, $user['first_name'] . ' ' . $user['last_name']);
                     
-                    $resetLink = "https://junkvalue.xo.je/Customer-portal/Login/reset_password.php?token=$token&type=" . $user['type'];
+                    $resetLink = "https://frsm.qcprotektado.com/Customer-portal/Login/reset_password.php?token=$token&type=" . $user['type'];
                     $mail->isHTML(true);
                     $mail->Subject = 'Password Reset Request';
                     $mail->Body    = "Hi {$user['first_name']},<br><br>"

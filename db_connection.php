@@ -1,8 +1,8 @@
 <?php
-$host = 'sql301.infinityfree.com';
-$dbname = 'if0_39632973_if0_39632973_';
-$username = 'if0_39632973';
-$password = '12Spykekyle12';
+$host = 'localhost';
+$dbname = 'frsm_junkvalue';
+$username = 'frsm_junkvalue';
+$password = 'Admin123';
 
 try {
     $conn = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $username, $password);
