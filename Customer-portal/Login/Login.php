@@ -1832,7 +1832,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
             </div>
             
             <div class="recaptcha-container">
-                <div class="g-recaptcha" data-sitekey="<?php echo RECAPTCHA_SITE_KEY; ?>"></div>
+                <div class="g-recaptcha" data-sitekey="6LcM5u8rAAAAAAs3I-ENt3yWWTUEIRL4E1u4CObc"></div>
             </div>
             
             <button type="submit" name="login" class="btn-primary">
