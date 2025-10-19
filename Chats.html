@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JunkValue Bot Assistant</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+ 
+  <link rel="stylesheet" href="Chatbot.css">
+</head>
+<body>
+  <div class="header">
+    <button class="back-btn" onclick="window.location.href='index.php'">
+      <i class="fas fa-arrow-left"></i> Back to Site
+    </button>
+    <div class="header-content">
+      <h2>
+        <span class="logo"><img src="img/chatbots.png" alt="JunkValue Logo"></span>
+        JunkValue Assistant
+      </h2>
+    </div>
+    <div style="width: 100px;">&nbsp;</div>
+  </div>
+
+  <div class="decoration decoration-1"></div>
+  <div class="decoration decoration-2"></div>
+  <div class="decoration decoration-3"></div>
+
+  <div class="chat-container">
+    <div id="chatBox">
+      <div class="welcome-message">
+        <h3><i class="fas fa-recycle"></i> Welcome to JunkValue Assistant!</h3>
+        <p>Get instant answers about scrap prices, recycling tips, and more.</p>
+      </div>
+      
+<div class="message bot">
+    <div class="avatar"><img src="img/chatbot.png" alt="JunkValue Avatar"></div>
+    <div class="message-content">
+        <div class="message-header">
+            <span class="message-sender">JunkValue Bot</span>
+            <span class="message-time">Just now</span>
+        </div>
+        <div class="bot-message-text">Hello! I'm your JunkValue Assistant ♻️, powered by Llama3.3. I can help with scrap prices, materials we accept, and other recycling questions. How can I assist you today?</div>
+          
+          <div class="suggested-questions">
+            <div class="suggested-question" onclick="quickAction('What materials do you accept?')">
+              <i class="fas fa-list"></i> What materials do you accept?
+            </div>
+            <div class="suggested-question" onclick="quickAction('Current scrap metal prices')">
+              <i class="fas fa-coins"></i> Current scrap prices
+            </div>
+            <div class="suggested-question" onclick="quickAction('How to prepare my items')">
+              <i class="fas fa-broom"></i> Preparation tips
+            </div>
+            <div class="suggested-question" onclick="quickAction('business hours')">
+              <i class="fas fa-clock"></i> Business hours
+            </div>
+          </div>
+          
+          <div class="quick-actions">
+            <button class="quick-action-btn" onclick="quickAction('accepted items')">
+              <i class="fas fa-list"></i> Accepted Items
+            </button>
+            <button class="quick-action-btn" onclick="quickAction('current prices')">
+              <i class="fas fa-coins"></i> Current Prices
+            </button>
+            <button class="quick-action-btn" onclick="quickAction('preparation tips')">
+              <i class="fas fa-broom"></i> Preparation Tips
+            </button>
+            <button class="quick-action-btn" onclick="quickAction('business hours')">
+              <i class="fas fa-clock"></i> Business Hours
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="input-container">
+      <input type="text" id="userInput" placeholder="Ask about scrap prices, materials we accept..." />
+      <button id="sendBtn" onclick="sendMessage()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="22" y1="2" x2="11" y2="13"></line>
+          <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <script>
+    const input = document.getElementById('userInput');
+    const chat = document.getElementById('chatBox');
+    const sendBtn = document.getElementById('sendBtn');
+
+    // Accepted materials and prices from your website
+    const acceptedMaterials = [
+      { name: "Copper Wire", price: "₱285.70/kg", category: "metal", icon: "fas fa-bolt" },
+      { name: "PET Bottles", price: "₱28.57/kg", category: "plastic", icon: "fas fa-wine-bottle" },
+      { name: "Aluminum Cans", price: "₱68.57/kg", category: "metal", icon: "fas fa-beer" },
+      { name: "Cardboard", price: "₱17.14/kg", category: "paper", icon: "fas fa-box-open" },
+      { name: "Steel", price: "₱45.71/kg", category: "metal", icon: "fas fa-hammer" },
+      { name: "Glass Bottles", price: "₱14.29/kg", category: "glass", icon: "fas fa-glass-whiskey" },
+      { name: "Computer Parts", price: "₱85.71/kg", category: "electronics", icon: "fas fa-laptop" }
+    ];
+
+    // Preparation tips from your website
+    const preparationTips = [
+      "Clean materials get better prices - remove food residue, liquids, etc.",
+      "Sort by material type - keep metals, plastics, and paper separate",
+      "Remove non-recyclable parts - like plastic caps from glass bottles",
+      "Bundle similar items together - tie cardboard, bag aluminum cans",
+      "Call ahead for large quantities - we can prepare for bulk recycling"
+    ];
+
+    // Business information
+    const businessInfo = {
+      hours: "Monday-Friday: 8:00 AM - 6:00 PM\nSaturday: 9:00 AM - 4:00 PM\nSunday: Closed",
+      location: "P2GP+JVX, Topaz, Novaliches, Quezon City, Metro Manila",
+      phone: "(02) 8994 4218",
+      email: "info@junkvalue.com"
+    };
+
+    // Send on Enter key
+    input.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        sendMessage();
+      }
+    });
+
+    function getCurrentTime() {
+      const now = new Date();
+      let hours = now.getHours();
+      const minutes = now.getMinutes().toString().padStart(2, '0');
+      const ampm = hours >= 12 ? 'PM' : 'AM';
+      hours = hours % 12;
+      hours = hours ? hours : 12; // the hour '0' should be '12'
+      return `${hours}:${minutes} ${ampm}`;
+    }
+
+    function addMessageToChat(sender, message, isTyping = false) {
+      const messageDiv = document.createElement('div');
+      messageDiv.className = `message ${sender}`;
+      
+      const time = getCurrentTime();
+      
+      if (sender === 'bot') {
+        messageDiv.innerHTML = `
+          <div class="avatar"><img src="img/chatbot.png" alt="JunkValue Avatar"></div>
+          <div class="message-content">
+            <div class="message-header">
+              <span class="message-sender">JunkValue Bot</span>
+              <span class="message-time">${time}</span>
+            </div>
+            ${isTyping ? 
+              '<div class="typing-indicator"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div>' : 
+              `<div class="bot-message-text">${message}</div>`}
+          </div>
+        `;
+      } else {
+        messageDiv.innerHTML = `
+          <div class="avatar">You</div>
+          <div class="message-content">
+            <div class="message-header">
+              <span class="message-sender">You</span>
+              <span class="message-time">${time}</span>
+            </div>
+            <div>${message}</div>
+          </div>
+        `;
+      }
+      
+      chat.appendChild(messageDiv);
+      chat.scrollTop = chat.scrollHeight;
+      return messageDiv;
+    }
+
+    function quickAction(action) {
+      input.value = action;
+      sendMessage();
+    }
+
+    function generateAcceptedMaterialsResponse() {
+      let response = "Here are the materials we accept and their current prices:\n\n";
+      response += "<ul class='material-list'>";
+      
+      acceptedMaterials.forEach(material => {
+        response += `<li><i class="${material.icon}"></i> <span class='material-name'>${material.name}</span> <span class='material-price'>${material.price}</span></li>`;
+      });
+      
+      response += "</ul>";
+      
+      response += `<div class='preparation-tips'>
+        <h4><i class="fas fa-lightbulb"></i> Preparation Tips:</h4>
+        <ul>`;
+      
+      preparationTips.forEach(tip => {
+        response += `<li>${tip}</li>`;
+      });
+      
+      response += `</ul>
+        </div>`;
+      
+      response += `<div class='quick-actions'>
+        <button class="quick-action-btn" onclick="quickAction('current prices')">
+          <i class="fas fa-coins"></i> Current Prices
+        </button>
+        <button class="quick-action-btn" onclick="quickAction('preparation tips')">
+          <i class="fas fa-broom"></i> Preparation Tips
+        </button>
+        <button class="quick-action-btn" onclick="quickAction('business hours')">
+          <i class="fas fa-clock"></i> Business Hours
+        </button>
+      </div>`;
+      
+      return response;
+    }
+
+    function generatePreparationTipsResponse() {
+      let response = "To get the best prices for your recyclables, follow these preparation tips:\n\n";
+      response += "<ul class='material-list'>";
+      
+      preparationTips.forEach(tip => {
+        response += `<li>${tip}</li>`;
+      });
+      
+      response += "</ul>";
+      
+      response += `<div class='quick-actions'>
+        <button class="quick-action-btn" onclick="quickAction('accepted items')">
+          <i class="fas fa-list"></i> Accepted Items
+        </button>
+        <button class="quick-action-btn" onclick="quickAction('current prices')">
+          <i class="fas fa-coins"></i> Current Prices
+        </button>
+      </div>`;
+      
+      return response;
+    }
+
+    function generateBusinessHoursResponse() {
+      let response = "Our business hours and location information:\n\n";
+      response += `<div style="background: rgba(106, 127, 70, 0.1); padding: 15px; border-radius: 10px; margin-bottom: 15px;">
+        <h4 style="margin-top: 0; color: var(--primary-color);"><i class="fas fa-clock"></i> Operating Hours</h4>
+        <p style="margin-bottom: 0;">${businessInfo.hours.replace(/\n/g, '<br>')}</p>
+      </div>`;
+      
+      response += `<div style="background: rgba(217, 122, 65, 0.1); padding: 15px; border-radius: 10px;">
+        <h4 style="margin-top: 0; color: var(--secondary-color);"><i class="fas fa-map-marker-alt"></i> Location & Contact</h4>
+        <p><strong>Address:</strong> ${businessInfo.location}</p>
+        <p><strong>Phone:</strong> ${businessInfo.phone}</p>
+        <p><strong>Email:</strong> ${businessInfo.email}</p>
+      </div>`;
+      
+      response += `<div class='quick-actions'>
+        <button class="quick-action-btn" onclick="quickAction('accepted items')">
+          <i class="fas fa-list"></i> Accepted Items
+        </button>
+        <button class="quick-action-btn" onclick="quickAction('preparation tips')">
+          <i class="fas fa-broom"></i> Preparation Tips
+        </button>
+      </div>`;
+      
+      return response;
+    }
+
+    function generateCurrentPricesResponse() {
+      let response = "Here are our current prices for recyclable materials (prices may vary based on market conditions and material quality):\n\n";
+      response += "<ul class='material-list'>";
+      
+      acceptedMaterials.forEach(material => {
+        response += `<li><i class="${material.icon}"></i> <span class='material-name'>${material.name}</span> <span class='material-price'>${material.price}</span></li>`;
+      });
+      
+      response += "</ul>";
+      
+      response += `<div class='quick-actions'>
+        <button class="quick-action-btn" onclick="quickAction('accepted items')">
+          <i class="fas fa-list"></i> Accepted Items
+        </button>
+        <button class="quick-action-btn" onclick="quickAction('preparation tips')">
+          <i class="fas fa-broom"></i> Preparation Tips
+        </button>
+      </div>`;
+      
+      return response;
+    }
+
+    function handleSpecialQuery(query) {
+      query = query.toLowerCase();
+      
+      if (query.includes('accept') || query.includes('take') || query.includes('recycle') || 
+          query.includes('material') || query.includes('item') || query.includes('scrap')) {
+        return generateAcceptedMaterialsResponse();
+      }
+      else if (query.includes('price') || query.includes('rate') || query.includes('cost') || 
+               query.includes('how much') || query.includes('current price')) {
+        return generateCurrentPricesResponse();
+      }
+      else if (query.includes('prepare') || query.includes('clean') || query.includes('tip') || 
+               query.includes('how to') || query.includes('get ready')) {
+        return generatePreparationTipsResponse();
+      }
+      else if (query.includes('hour') || query.includes('open') || query.includes('close') || 
+               query.includes('time') || query.includes('when') || query.includes('location') || 
+               query.includes('address') || query.includes('phone') || query.includes('contact')) {
+        return generateBusinessHoursResponse();
+      }
+      
+      return null;
+    }
+
+    async function sendMessage() {
+      const message = input.value.trim();
+      if (!message) return;
+
+      // Disable input while processing
+      input.disabled = true;
+      sendBtn.disabled = true;
+      
+      // Add user message
+      addMessageToChat('user', message);
+      input.value = '';
+      
+      // Add bot typing indicator
+      const typingIndicator = addMessageToChat('bot', '', true);
+      
+      try {
+        // First check for special queries we can handle locally
+        const specialResponse = handleSpecialQuery(message);
+        
+        if (specialResponse) {
+          // Remove typing indicator
+          chat.removeChild(typingIndicator);
+          
+          // Add bot response with special response
+          const botResponseDiv = addMessageToChat('bot', specialResponse);
+          chat.scrollTop = chat.scrollHeight;
+        } else {
+          // Call your Ollama API for other queries
+          const response = await fetch('chatbot.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: new URLSearchParams({ prompt: message })
+          });
+          
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          
+          const data = await response.json();
+          
+          // Remove typing indicator
+          chat.removeChild(typingIndicator);
+          
+          // Add bot response with streaming effect
+          const botResponseDiv = addMessageToChat('bot', '');
+          const botTextElement = botResponseDiv.querySelector('.bot-message-text');
+          
+          // Type out the response character by character
+          const responseText = data.response || "I'm sorry, I couldn't process your request. Please try again.";
+          let i = 0;
+          const typingInterval = setInterval(() => {
+            if (i < responseText.length) {
+              botTextElement.innerHTML += responseText.charAt(i);
+              i++;
+              chat.scrollTop = chat.scrollHeight;
+            } else {
+              clearInterval(typingInterval);
+              
+              // Add quick actions after the response is fully typed
+              const quickActions = `
+                <div class='quick-actions'>
+                  <button class="quick-action-btn" onclick="quickAction('accepted items')">
+                    <i class="fas fa-list"></i> Accepted Items
+                  </button>
+                  <button class="quick-action-btn" onclick="quickAction('current prices')">
+                    <i class="fas fa-coins"></i> Current Prices
+                  </button>
+                  <button class="quick-action-btn" onclick="quickAction('preparation tips')">
+                    <i class="fas fa-broom"></i> Preparation Tips
+                  </button>
+                </div>`;
+              
+              botResponseDiv.querySelector('.message-content').innerHTML += quickActions;
+              chat.scrollTop = chat.scrollHeight;
+            }
+          }, 20);
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        chat.removeChild(typingIndicator);
+        addMessageToChat('bot', "Sorry, I'm having trouble connecting to the server. Please try again later.");
+      } finally {
+        // Re-enable input
+        input.disabled = false;
+        sendBtn.disabled = false;
+        input.focus();
+      }
+    }
+
+    // Focus input on page load
+    window.onload = function() {
+      input.focus();
+    };
+  </script>
+</body>
+</html>

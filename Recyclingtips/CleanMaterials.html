@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clean Materials Guide - Junkshop Recycling Tips</title>
+    <style>
+        :root {
+            /* Color Palette */
+            --primary-color: #6A7F46;       
+            --secondary-color: #D97A41;  
+            --accent-color: #3C342C;        
+            --light-color: #F2EAD3;         
+            --lighter-color: #F9F5EB;      
+            --dark-color: #2E2B29;          
+            --text-color: #333333;          
+            --text-light: #777777;         
+            --white: #FFFFFF;
+            --black: #000000;
+            
+            --copper-color: #B87333;
+            --pet-color: #6A7F46;
+            --aluminum-color: #848482;
+            --cardboard-color: #C19A6B;
+            --steel-color: #43464B;
+            --glass-color: #5D8AA8;
+            --computer-color: #003366;
+            
+            --shadow-sm: 0 2px 5px rgba(0,0,0,0.1);
+            --shadow-md: 0 5px 15px rgba(0,0,0,0.1);
+            --shadow-lg: 0 10px 25px rgba(0,0,0,0.15);
+            --shadow-inset: inset 0 2px 4px rgba(0,0,0,0.05);
+            
+            --transition-fast: all 0.2s ease;
+            --transition-normal: all 0.3s ease;
+            --transition-slow: all 0.5s ease;
+            
+            --border-radius-sm: 4px;
+            --border-radius-md: 8px;
+            --border-radius-lg: 12px;
+            --border-radius-xl: 20px;
+            --border-radius-circle: 50%;
+            
+            --space-xs: 5px;
+            --space-sm: 10px;
+            --space-md: 20px;
+            --space-lg: 30px;
+            --space-xl: 40px;
+            --space-xxl: 60px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--lighter-color);
+            padding: var(--space-lg);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: var(--space-xl);
+            padding: var(--space-lg);
+            background-color: var(--primary-color);
+            color: var(--light-color);
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--shadow-md);
+            position: relative;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: var(--space-sm);
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            color: var(--secondary-color);
+            margin: var(--space-lg) 0 var(--space-md);
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: var(--space-sm);
+        }
+
+        h3 {
+            font-size: 1.4rem;
+            margin: var(--space-md) 0 var(--space-sm);
+        }
+
+        .intro {
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin: 0 auto var(--space-xl);
+            text-align: center;
+            color: var(--text-color);
+        }
+
+        .tips-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: var(--space-lg);
+            margin-bottom: var(--space-xl);
+        }
+
+        .tip-card {
+            background-color: var(--white);
+            border-radius: var(--border-radius-lg);
+            padding: var(--space-lg);
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition-normal);
+            border-top: 5px solid var(--secondary-color);
+        }
+
+        .tip-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .material-type {
+            display: inline-block;
+            padding: var(--space-xs) var(--space-sm);
+            border-radius: var(--border-radius-sm);
+            font-weight: bold;
+            font-size: 0.9rem;
+            margin-bottom: var(--space-sm);
+            color: var(--white);
+        }
+
+        .cleaning { background-color: var(--pet-color); }
+        .containers { background-color: var(--glass-color); }
+        .metal { background-color: var(--steel-color); }
+        .paper { background-color: var(--cardboard-color); }
+        .electronics { background-color: var(--computer-color); }
+
+        .tip-content {
+            margin-bottom: var(--space-md);
+        }
+
+        .price-tip {
+            font-style: italic;
+            color: var(--secondary-color);
+            font-weight: 500;
+            padding: var(--space-sm);
+            background-color: var(--light-color);
+            border-radius: var(--border-radius-sm);
+            border-left: 3px solid var(--secondary-color);
+        }
+
+        .highlight-box {
+            background-color: var(--light-color);
+            padding: var(--space-md);
+            border-radius: var(--border-radius-md);
+            margin: var(--space-lg) 0;
+            border-left: 5px solid var(--secondary-color);
+            box-shadow: var(--shadow-sm);
+        }
+
+        footer {
+            text-align: center;
+            margin-top: var(--space-xl);
+            padding: var(--space-lg);
+            background-color: var(--accent-color);
+            color: var(--light-color);
+            border-radius: var(--border-radius-lg);
+        }
+
+        /* Back Button Styles */
+        .back-button {
+            position: absolute;
+            top: var(--space-md);
+            left: var(--space-md);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: var(--space-sm) var(--space-md);
+            background-color: var(--light-color);
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+            border-radius: var(--border-radius-xl);
+            font-weight: bold;
+            text-decoration: none;
+            transition: var(--transition-normal);
+            box-shadow: var(--shadow-sm);
+            z-index: 10;
+            overflow: hidden;
+        }
+
+        .back-button:hover {
+            background-color: var(--primary-color);
+            color: var(--light-color);
+            transform: translateX(-5px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .back-button::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: var(--transition-slow);
+        }
+
+        .back-button:hover::before {
+            left: 100%;
+        }
+
+        .back-button i {
+            margin-right: var(--space-xs);
+            transition: var(--transition-fast);
+        }
+
+        .back-button:hover i {
+            transform: translateX(-3px);
+        }
+
+        @media (max-width: 768px) {
+            .tips-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            h2 {
+                font-size: 1.5rem;
+            }
+            
+            .back-button {
+                top: var(--space-sm);
+                left: var(--space-sm);
+                padding: var(--space-xs) var(--space-sm);
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <a href="../index.php" class="back-button">
+                <i class="fas fa-arrow-left"></i> Back to Main Site
+            </a>
+            <h1>Clean Materials Guide</h1>
+            <p>Maximize your recycling value through proper cleaning and preparation</p>
+        </header>
+
+        <section>
+            <p class="intro">
+                Clean materials can fetch significantly higher prices at junkshops. 
+                Follow these cleaning guidelines to ensure you get the best value for your recyclables.
+            </p>
+
+            <div class="highlight-box">
+                <h3>Why Clean Materials Matter</h3>
+                <p>Rinse containers and remove food residue. Clean materials are worth more and are easier to process. Food contamination can reduce value by up to 30%.</p>
+                <p class="price-tip">Clean, well-prepared materials can get you 20-30% more money compared to dirty, mixed loads.</p>
+            </div>
+
+            <h2>Material Cleaning Guide</h2>
+            
+            <div class="tips-grid">
+                <!-- Containers -->
+                <div class="tip-card">
+                    <span class="material-type containers">CONTAINERS</span>
+                    <div class="tip-content">
+                        <h3>Bottles and Cans</h3>
+                        <p>Rinse all bottles and cans thoroughly to remove liquids and residues. For sticky substances, use warm soapy water. Remove labels when possible as they can contaminate recycling streams.</p>
+                        <p class="price-tip">Clean aluminum cans can be worth 50% more than dirty ones.</p>
+                    </div>
+                </div>
+
+                <!-- Food Packaging -->
+                <div class="tip-card">
+                    <span class="material-type cleaning">FOOD PACKAGING</span>
+                    <div class="tip-content">
+                        <h3>Food Containers</h3>
+                        <p>Scrape out all food residues before recycling. For greasy pizza boxes, tear off and recycle only the clean parts. Oily contamination can ruin entire batches of recycled paper.</p>
+                        <p class="price-tip">Clean food packaging maintains its material quality and value.</p>
+                    </div>
+                </div>
+
+                <!-- Metal Items -->
+                <div class="tip-card">
+                    <span class="material-type metal">METAL ITEMS</span>
+                    <div class="tip-content">
+                        <h3>Scrap Metal Cleaning</h3>
+                        <p>Remove any non-metal attachments. For copper wire, strip off insulation when possible. Clean metal surfaces of dirt and grease. Separate different metal types for maximum value.</p>
+                        <p class="price-tip">Bare, clean copper wire fetches the highest price per pound.</p>
+                    </div>
+                </div>
+
+                <!-- Paper Products -->
+                <div class="tip-card">
+                    <span class="material-type paper">PAPER PRODUCTS</span>
+                    <div class="tip-content">
+                        <h3>Paper and Cardboard</h3>
+                        <p>Keep paper products dry and free from food stains. Remove plastic windows from envelopes and non-paper attachments. Flatten boxes to save space and prevent moisture retention.</p>
+                        <p class="price-tip">Dry, clean cardboard maintains its fiber quality and gets better rates.</p>
+                    </div>
+                </div>
+
+                <!-- Electronics -->
+                <div class="tip-card">
+                    <span class="material-type electronics">ELECTRONICS</span>
+                    <div class="tip-content">
+                        <h3>E-Waste Preparation</h3>
+                        <p>Wipe down surfaces to remove dust and grime. Remove batteries (recycle separately). Keep components intact - don't break apart unless you know how to properly separate materials.</p>
+                        <p class="price-tip">Well-maintained electronics retain more of their component value.</p>
+                    </div>
+                </div>
+
+                <!-- General Cleaning -->
+                <div class="tip-card">
+                    <span class="material-type cleaning">GENERAL TIPS</span>
+                    <div class="tip-content">
+                        <h3>Cleaning Best Practices</h3>
+                        <p>Use minimal water - a quick rinse is usually sufficient. Air dry materials before storing to prevent mold. Organize by material type after cleaning for efficient recycling.</p>
+                        <p class="price-tip">Properly cleaned and sorted materials can double your recycling income.</p>
+                    </div>
+                </div>
+            </div>
+
+            <h2>Cleaning Do's and Don'ts</h2>
+            <div class="tip-card" style="max-width: 800px; margin: 0 auto;">
+                <div class="tip-content">
+                    <ul style="padding-left: var(--space-lg);">
+                        <li style="margin-bottom: var(--space-sm);"><strong>DO</strong> rinse containers immediately after use to prevent residues from drying</li>
+                        <li style="margin-bottom: var(--space-sm);"><strong>DO</strong> remove caps and lids from bottles (recycle separately)</li>
+                        <li style="margin-bottom: var(--space-sm);"><strong>DO</strong> shake out excess water to prevent mold in storage</li>
+                        <li style="margin-bottom: var(--space-sm);"><strong>DON'T</strong> use excessive water - conservation is important</li>
+                        <li style="margin-bottom: var(--space-sm);"><strong>DON'T</strong> mix clean and dirty materials - contamination spreads</li>
+                        <li><strong>DON'T</strong> bag recyclables - they should be loose in your bins</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+       <footer>
+            <p>Remember: Clean materials mean more money in your pocket and better quality recycling!</p>
+            <p style="margin-top: var(--space-sm);">Investing a little time in proper cleaning can significantly increase your recycling profits.</p>
+            <div style="margin-top: var(--space-lg); padding-top: var(--space-sm); border-top: 1px solid rgba(255,255,255,0.2);">
+                <p style="font-size: 0.9rem;">&copy; JunkValue 2025. All rights reserved.</p>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>

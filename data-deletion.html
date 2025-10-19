@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="img/MainLogo.svg">
+    <title>Data Deletion Policy - JunkValue</title>
+    <style>
+        :root {
+            --bg-beige: #E6D8C3;
+            --sales-orange: #D97A41;
+            --stock-green: #708B4C;
+            --panel-cream: #F2EAD3;
+            --topbar-brown: #3C342C;
+            --text-dark: #2E2B29;
+            --icon-green: #6A7F46;
+            --icon-orange: #D97A41;
+            
+            --primary-color: var(--stock-green);
+            --secondary-color: var(--sales-orange);
+            --accent-color: var(--icon-green);
+            --dark-color: var(--topbar-brown);
+            --light-color: var(--panel-cream);
+            --text-color: var(--text-dark);
+            --text-light: #777;
+        }
+
+        /* Base Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: var(--bg-beige);
+            color: var(--text-dark);
+        }
+
+        /* Document Container */
+        .document-container {
+            background-color: var(--light-color);
+            padding: 2.5rem;
+            border-radius: 12px;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        /* Header Styles */
+        .document-header {
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 1rem;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .document-header::after {
+            content: "";
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 100px;
+            height: 3px;
+            background-color: var(--primary-color);
+        }
+
+        h1 {
+            color: var(--dark-color);
+            font-size: 2.4rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        .last-updated {
+            color: var(--text-light);
+            font-style: italic;
+            font-size: 0.95rem;
+        }
+
+        /* Content Styles */
+        h2 {
+            color: var(--primary-color);
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--accent-color);
+            font-size: 1.5rem;
+            position: relative;
+            padding-left: 1.2rem;
+        }
+
+        h2::before {
+            content: "§";
+            position: absolute;
+            left: 0;
+            color: var(--secondary-color);
+            font-weight: bold;
+        }
+
+        p {
+            margin-bottom: 1.2rem;
+            color: var(--text-dark);
+        }
+
+        /* List Styles */
+        ul {
+            padding-left: 1.8rem;
+            margin: 1rem 0;
+        }
+
+        li {
+            margin-bottom: 0.8rem;
+            position: relative;
+            padding-left: 1.2rem;
+        }
+
+        li::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0.6rem;
+            width: 8px;
+            height: 8px;
+            background-color: var(--secondary-color);
+            border-radius: 50%;
+        }
+
+        /* Link Styles */
+        a {
+            color: var(--secondary-color);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            border-bottom: 1px dotted var(--secondary-color);
+        }
+
+        a:hover {
+            color: var(--dark-color);
+            border-bottom: 1px solid var(--dark-color);
+        }
+
+        /* Footer */
+        .document-footer {
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px dashed var(--accent-color);
+            text-align: center;
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        /* Special Styles for Data Deletion Page */
+        .deletion-process {
+            background-color: rgba(112, 139, 76, 0.1);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+            border-left: 4px solid var(--primary-color);
+        }
+        
+        .warning-note {
+            background-color: rgba(217, 122, 65, 0.1);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+            border-left: 4px solid var(--secondary-color);
+        }
+        
+        .warning-note h3 {
+            color: var(--secondary-color);
+            margin-top: 0;
+        }
+        
+        .deletion-process h3 {
+            color: var(--primary-color);
+            margin-top: 0;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .document-container {
+                padding: 1.5rem;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            h2 {
+                font-size: 1.3rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+            
+            .document-container {
+                padding: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="document-container">
+        <header class="document-header">
+            <h1>Data Deletion Policy</h1>
+            <p class="last-updated">Last Updated: January 1, 2025</p>
+        </header>
+
+        <main>
+            <h2>1. Introduction</h2>
+            <p>At JunkValue, we respect your privacy and your right to control your personal data. This Data Deletion Policy explains how you can request the deletion of your personal information from our systems.</p>
+
+            <h2>2. Your Right to Data Deletion</h2>
+            <p>Under data protection laws, you have the right to request the deletion of your personal data when:</p>
+            <ul>
+                <li>The data is no longer necessary for the purpose we originally collected it for</li>
+                <li>You withdraw your consent for processing</li>
+                <li>You object to the processing and there are no overriding legitimate grounds</li>
+                <li>The data has been processed unlawfully</li>
+                <li>We are required to erase the data to comply with a legal obligation</li>
+            </ul>
+
+            <h2>3. How to Request Data Deletion</h2>
+            <p>To request deletion of your personal data, please follow these steps:</p>
+            
+            <div class="deletion-process">
+                <h3>Data Deletion Process</h3>
+                <ol>
+                    <li>Send an email to <a href="mailto:privacy@junkvalue.com">privacy@junkvalue.com</a> from the email address associated with your account</li>
+                    <li>Include "Data Deletion Request" in the subject line</li>
+                    <li>Provide your full name and any additional information that will help us identify your account</li>
+                    <li>Specify which data you would like deleted</li>
+                </ol>
+                <p>We will respond to your request within 30 days.</p>
+            </div>
+
+            <h2>4. What Data We Delete</h2>
+            <p>When you request data deletion, we will remove:</p>
+            <ul>
+                <li>Your personal profile information</li>
+                <li>Your account credentials</li>
+                <li>Your transaction history</li>
+                <li>Any stored preferences and settings</li>
+                <li>Other personally identifiable information</li>
+            </ul>
+
+            <h2>5. Data We May Retain</h2>
+            <p>In certain circumstances, we may need to retain some information even after a deletion request:</p>
+            <ul>
+                <li>Data necessary to comply with legal obligations</li>
+                <li>Information required for fraud prevention and detection</li>
+                <li>Transaction records needed for financial reporting</li>
+                <li>Anonymized data that cannot be linked back to you</li>
+            </ul>
+
+            <div class="warning-note">
+                <h3>Important Note</h3>
+                <p>Once your data is deleted, the action cannot be reversed. You will lose access to your account and any associated data permanently. If you wish to use our services again, you will need to create a new account.</p>
+            </div>
+
+            <h2>6. Automatic Account Deletion</h2>
+            <p>We may automatically delete accounts and associated data that have been inactive for a period of 24 months. Before deletion, we will notify you via email and provide an opportunity to maintain your account.</p>
+
+            <h2>7. Contact Us</h2>
+            <p>If you have any questions about our Data Deletion Policy, please <a href="contact-us.html">contact us</a>.</p>
+        </main>
+
+        <footer class="document-footer">
+            <p>&copy; 2025 JunkValue. All rights reserved.</p>
+        </footer>
+    </div>
+</body>
+</html>

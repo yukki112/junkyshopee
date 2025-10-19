@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Junkshop Recycling Tips - Proper Sorting Guide</title>
+    <style>
+        :root {
+            /* Color Palette */
+            --primary-color: #6A7F46;       
+            --secondary-color: #D97A41;  
+            --accent-color: #3C342C;        
+            --light-color: #F2EAD3;         
+            --lighter-color: #F9F5EB;      
+            --dark-color: #2E2B29;          
+            --text-color: #333333;          
+            --text-light: #777777;         
+            --white: #FFFFFF;
+            --black: #000000;
+            
+            --copper-color: #B87333;
+            --pet-color: #6A7F46;
+            --aluminum-color: #848482;
+            --cardboard-color: #C19A6B;
+            --steel-color: #43464B;
+            --glass-color: #5D8AA8;
+            --computer-color: #003366;
+            --yero-color: #71797E;
+            --battery-color: #E1C16E;
+            
+            --shadow-sm: 0 2px 5px rgba(0,0,0,0.1);
+            --shadow-md: 0 5px 15px rgba(0,0,0,0.1);
+            --shadow-lg: 0 10px 25px rgba(0,0,0,0.15);
+            --shadow-inset: inset 0 2px 4px rgba(0,0,0,0.05);
+            
+            --transition-fast: all 0.2s ease;
+            --transition-normal: all 0.3s ease;
+            --transition-slow: all 0.5s ease;
+            
+            --border-radius-sm: 4px;
+            --border-radius-md: 8px;
+            --border-radius-lg: 12px;
+            --border-radius-xl: 20px;
+            --border-radius-circle: 50%;
+            
+            --space-xs: 5px;
+            --space-sm: 10px;
+            --space-md: 20px;
+            --space-lg: 30px;
+            --space-xl: 40px;
+            --space-xxl: 60px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--lighter-color);
+            padding: var(--space-lg);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: var(--space-xl);
+            padding: var(--space-lg);
+            background-color: var(--primary-color);
+            color: var(--light-color);
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--shadow-md);
+            position: relative;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: var(--space-sm);
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            color: var(--secondary-color);
+            margin: var(--space-lg) 0 var(--space-md);
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: var(--space-sm);
+        }
+
+        h3 {
+            font-size: 1.4rem;
+            margin: var(--space-md) 0 var(--space-sm);
+        }
+
+        .intro {
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin: 0 auto var(--space-xl);
+            text-align: center;
+            color: var(--text-color);
+        }
+
+        .tips-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: var(--space-lg);
+            margin-bottom: var(--space-xl);
+        }
+
+        .tip-card {
+            background-color: var(--white);
+            border-radius: var(--border-radius-lg);
+            padding: var(--space-lg);
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition-normal);
+            border-top: 5px solid var(--secondary-color);
+        }
+
+        .tip-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .material-type {
+            display: inline-block;
+            padding: var(--space-xs) var(--space-sm);
+            border-radius: var(--border-radius-sm);
+            font-weight: bold;
+            font-size: 0.9rem;
+            margin-bottom: var(--space-sm);
+            color: var(--white);
+        }
+
+        .copper { background-color: var(--copper-color); }
+        .pet { background-color: var(--pet-color); }
+        .aluminum { background-color: var(--aluminum-color); }
+        .cardboard { background-color: var(--cardboard-color); }
+        .steel { background-color: var(--steel-color); }
+        .glass { background-color: var(--glass-color); }
+        .computer { background-color: var(--computer-color); }
+        .yero { background-color: var(--yero-color); }
+        .battery { background-color: var(--battery-color); }
+
+        .tip-content {
+            margin-bottom: var(--space-md);
+        }
+
+        .price-tip {
+            font-style: italic;
+            color: var(--secondary-color);
+            font-weight: 500;
+            padding: var(--space-sm);
+            background-color: var(--light-color);
+            border-radius: var(--border-radius-sm);
+            border-left: 3px solid var(--secondary-color);
+        }
+
+        .price-display {
+            font-weight: bold;
+            color: var(--primary-color);
+            margin: var(--space-sm) 0;
+            font-size: 1.1rem;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: var(--space-xl);
+            padding: var(--space-lg);
+            background-color: var(--accent-color);
+            color: var(--light-color);
+            border-radius: var(--border-radius-lg);
+        }
+
+        /* Back Button Styles */
+        .back-button {
+            position: absolute;
+            top: var(--space-md);
+            left: var(--space-md);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: var(--space-sm) var(--space-md);
+            background-color: var(--light-color);
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+            border-radius: var(--border-radius-xl);
+            font-weight: bold;
+            text-decoration: none;
+            transition: var(--transition-normal);
+            box-shadow: var(--shadow-sm);
+            z-index: 10;
+            overflow: hidden;
+        }
+
+        .back-button:hover {
+            background-color: var(--primary-color);
+            color: var(--light-color);
+            transform: translateX(-5px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .back-button::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: var(--transition-slow);
+        }
+
+        .back-button:hover::before {
+            left: 100%;
+        }
+
+        .back-button i {
+            margin-right: var(--space-xs);
+            transition: var(--transition-fast);
+        }
+
+        .back-button:hover i {
+            transform: translateX(-3px);
+        }
+
+        /* Language Switcher */
+        .language-switcher {
+            position: absolute;
+            top: var(--space-md);
+            right: var(--space-md);
+            display: flex;
+            gap: var(--space-sm);
+            z-index: 10;
+        }
+
+        .language-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 30px;
+            border: 2px solid var(--light-color);
+            border-radius: var(--border-radius-sm);
+            cursor: pointer;
+            transition: var(--transition-fast);
+            overflow: hidden;
+        }
+
+        .language-btn:hover {
+            transform: scale(1.05);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .language-btn.active {
+            border-color: var(--secondary-color);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .language-btn img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        @media (max-width: 768px) {
+            .tips-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            h2 {
+                font-size: 1.5rem;
+            }
+            
+            .back-button {
+                top: var(--space-sm);
+                left: var(--space-sm);
+                padding: var(--space-xs) var(--space-sm);
+                font-size: 0.9rem;
+            }
+
+            .language-switcher {
+                top: var(--space-sm);
+                right: var(--space-sm);
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <a href="../index.php" class="back-button">
+                <i class="fas fa-arrow-left"></i> <span class="lang-en">Back to Main Site</span><span class="lang-ph">Balik sa Pangunahing Site</span>
+            </a>
+            <div class="language-switcher">
+                <div class="language-btn active" data-lang="en">
+                    <img src="https://flagcdn.com/w20/gb.png" alt="English Flag">
+                </div>
+                <div class="language-btn" data-lang="ph">
+                    <img src="https://flagcdn.com/w20/ph.png" alt="Philippines Flag">
+                </div>
+            </div>
+            <h1 class="lang-en">Junkshop Recycling Tips</h1>
+            <h1 class="lang-ph" style="display: none;">Mga Tip sa Pagre-recycle para sa Junkshop</h1>
+            <p class="lang-en">Maximize your earnings by properly sorting recyclable materials</p>
+            <p class="lang-ph" style="display: none;">Palakihin ang iyong kita sa pamamagitan ng wastong paghihiwalay ng mga materyales na pwedeng i-recycle</p>
+        </header>
+
+        <section>
+            <p class="intro lang-en">
+                Proper sorting of recyclables can significantly increase their value at junkshops. 
+                Follow these guidelines to ensure you get the best prices for your materials.
+            </p>
+            <p class="intro lang-ph" style="display: none;">
+                Ang wastong paghihiwalay ng mga recyclable ay maaaring magpataas ng halaga nito sa mga junkshop.
+                Sundin ang mga gabay na ito upang masigurong makukuha mo ang pinakamagandang presyo para sa iyong mga materyales.
+            </p>
+
+            <h2 class="lang-en">Material Sorting Guide</h2>
+            <h2 class="lang-ph" style="display: none;">Gabay sa Paghihiwalay ng mga Materyales</h2>
+            
+            <div class="tips-grid">
+                <!-- Copper -->
+                <div class="tip-card">
+                    <span class="material-type copper lang-en">COPPER</span>
+                    <span class="material-type copper lang-ph" style="display: none;">TANSO</span>
+                    <div class="tip-content">
+                        <h3 class="lang-en">Clean Copper Sorting</h3>
+                        <h3 class="lang-ph" style="display: none;">Paghiwalay ng Malinis na Tanso</h3>
+                        <p class="lang-en">Separate bare, uncoated copper wire and piping from coated or insulated copper. Remove any attachments, rubber, or plastic coatings as these reduce value.</p>
+                        <p class="lang-ph" style="display: none;">Ihiwalay ang hubad na kawad at tubo ng tanso sa mga may balat o insulated. Tanggalin ang lahat ng nakakabit, goma, o plastic coating dahil nagpapababa ito ng halaga.</p>
+                        <div class="price-display">₱450.00/kg</div>
+                        <p class="price-tip lang-en">Clean, uncoated copper fetches the highest price per kilo at junkshops.</p>
+                        <p class="price-tip lang-ph" style="display: none;">Ang malinis at walang balat na tanso ang may pinakamataas na presyo kada kilo sa mga junkshop.</p>
+                    </div>
+                </div>
+
+                <!-- PET Plastic -->
+                <div class="tip-card">
+                    <span class="material-type pet lang-en">PET PLASTIC</span>
+                    <span class="material-type pet lang-ph" style="display: none;">PET PLASTIC</span>
+                    <div class="tip-content">
+                        <h3 class="lang-en">PET Bottle Preparation</h3>
+                        <h3 class="lang-ph" style="display: none;">Paghahanda ng PET Bottle</h3>
+                        <p class="lang-en">Remove caps and labels from PET bottles (water/soda bottles). Flatten bottles to save space. Sort by color - clear PET is more valuable than colored.</p>
+                        <p class="lang-ph" style="display: none;">Alisin ang takip at label ng PET bottles (bote ng tubig/softdrinks). Patagin ang mga bote para makatipid ng espasyo. Paghiwalayin ayon sa kulay - mas mahal ang malinaw na PET kaysa sa may kulay.</p>
+                        <div class="price-display">₱9.00/kg</div>
+                        <p class="price-tip lang-en">Clean, clear PET bottles can get 3-5 times the price of mixed colored plastics.</p>
+                        <p class="price-tip lang-ph" style="display: none;">Ang malinis at malinaw na PET bottles ay maaaring makatanggap ng 3-5 beses na mas mataas na presyo kaysa sa halo-halong may kulay na plastic.</p>
+                    </div>
+                </div>
+
+                <!-- Aluminum -->
+                <div class="tip-card">
+                    <span class="material-type aluminum lang-en">ALUMINUM</span>
+                    <span class="material-type aluminum lang-ph" style="display: none;">ALUMINUM</span>
+                    <div class="tip-content">
+                        <h3 class="lang-en">Aluminum Can Processing</h3>
+                        <h3 class="lang-ph" style="display: none;">Pagproseso ng Aluminum Can</h3>
+                        <p class="lang-en">Separate aluminum cans from other metals. Rinse to remove liquids and food residue. Crush cans to save space but don't mix with other materials.</p>
+                        <p class="lang-ph" style="display: none;">Ihiwalay ang aluminum cans sa ibang mga metal. Banlawan para maalis ang likido at tira ng pagkain. Pitpitin ang mga lata para makatipid ng espasyo pero huwag isama sa ibang materyales.</p>
+                        <div class="price-display">₱75.00/kg</div>
+                        <p class="price-tip lang-en">Clean aluminum cans are highly valuable - separate from steel cans which are less valuable.</p>
+                        <p class="price-tip lang-ph" style="display: none;">Ang malinis na aluminum cans ay lubhang mahalaga - ihiwalay sa steel cans na mas mababa ang halaga.</p>
+                    </div>
+                </div>
+
+                <!-- Cardboard -->
+                <div class="tip-card">
+                    <span class="material-type cardboard lang-en">CARDBOARD</span>
+                    <span class="material-type cardboard lang-ph" style="display: none;">KARTON</span>
+                    <div class="tip-content">
+                        <h3 class="lang-en">Cardboard Collection</h3>
+                        <h3 class="lang-ph" style="display: none;">Koleksyon ng Karton</h3>
+                        <p class="lang-en">Flatten all cardboard boxes to save space. Remove any plastic wrap, tape, or Styrofoam. Keep dry - wet cardboard loses most of its value.</p>
+                        <p class="lang-ph" style="display: none;">Patagin ang lahat ng kahon ng karton para makatipid ng espasyo. Alisin ang plastic wrap, tape, o Styrofoam. Panatilihing tuyo - ang basang karton ay nawawalan ng halaga.</p>
+                        <div class="price-display">₱2.00/kg</div>
+                        <p class="price-tip lang-en">Clean, dry corrugated cardboard gets better rates than mixed paper products.</p>
+                        <p class="price-tip lang-ph" style="display: none;">Ang malinis at tuyong corrugated cardboard ay may mas magandang presyo kaysa sa halo-halong produkto ng papel.</p>
+                    </div>
+                </div>
+
+                <!-- Steel -->
+                <div class="tip-card">
+                    <span class="material-type steel lang-en">STEEL/TIN</span>
+                    <span class="material-type steel lang-ph" style="display: none;">BAKAL/LATA</span>
+                    <div class="tip-content">
+                        <h3 class="lang-en">Steel and Tin Cans</h3>
+                        <h3 class="lang-ph" style="display: none;">Bakal at Lata</h3>
+                        <p class="lang-en">Separate steel/tin cans from aluminum. Remove paper labels when possible. Rinse to remove food residue. Crush to save space after sorting.</p>
+                        <p class="lang-ph" style="display: none;">Ihiwalay ang steel/tin cans sa aluminum. Alisin ang paper label kung maaari. Banlawan para matanggal ang tira ng pagkain. Pitpitin para makatipid ng espasyo pagkatapos paghiwalayin.</p>
+                        <div class="price-display">₱8.00/kg</div>
+                        <p class="price-tip lang-en">While less valuable than aluminum, clean steel still fetches good prices when properly sorted.</p>
+                        <p class="price-tip lang-ph" style="display: none;">Bagama't mas mababa ang halaga kaysa aluminum, ang malinis na bakal ay may magandang presyo kapag maayos na nahiwalay.</p>
+                    </div>
+                </div>
+
+                <!-- Glass -->
+                <div class="tip-card">
+                    <span class="material-type glass lang-en">GLASS</span>
+                    <span class="material-type glass lang-ph" style="display: none;">SALAMIN</span>
+                    <div class="tip-content">
+                        <h3 class="lang-en">Glass Bottle Sorting</h3>
+                        <h3 class="lang-ph" style="display: none;">Paghiwalay ng Bote ng Samin</h3>
+                        <p class="lang-en">Separate by color - clear, green, and brown glass should be in different batches. Remove caps and rings. Rinse to remove residues.</p>
+                        <p class="lang-ph" style="display: none;">Paghiwalayin ayon sa kulay - malinaw, berde, at kayumangging salamin ay dapat nasa magkakaibang grupo. Alisin ang takip at singsing. Banlawan para matanggal ang mga tira.</p>
+                        <div class="price-display">₱2.00/kg (Gin/Emperador only)</div>
+                        <p class="price-tip lang-en">Clear glass typically gets higher prices than colored glass at junkshops.</p>
+                        <p class="price-tip lang-ph" style="display: none;">Ang malinaw na salamin ay karaniwang mas mataas ang presyo kaysa may kulay sa mga junkshop.</p>
+                    </div>
+                </div>
+
+                <!-- E-Waste -->
+                <div class="tip-card">
+                    <span class="material-type computer lang-en">E-WASTE</span>
+                    <span class="material-type computer lang-ph" style="display: none;">E-WASTE</span>
+                    <div class="tip-content">
+                        <h3 class="lang-en">Electronic Waste Handling</h3>
+                        <h3 class="lang-ph" style="display: none;">Paghahandle ng Electronic Waste</h3>
+                        <p class="lang-en">Separate computers, phones, and appliances from regular scrap. Remove batteries (recycle separately). Keep circuit boards intact for better value.</p>
+                        <p class="lang-ph" style="display: none;">Ihiwalay ang mga computer, phone, at appliances sa regular na scrap. Alisin ang mga baterya (i-recycle nang hiwalay). Panatilihing buo ang circuit boards para sa mas magandang halaga.</p>
+                        <div class="price-display">₱250.00/kg</div>
+                        <p class="price-tip lang-en">E-waste contains valuable metals but requires special handling - don't mix with regular scrap.</p>
+                        <p class="price-tip lang-ph" style="display: none;">Ang e-waste ay naglalaman ng mahahalagang metal ngunit nangangailangan ng espesyal na paghawak - huwag isama sa regular na scrap.</p>
+                    </div>
+                </div>
+
+                <!-- Yero -->
+                <div class="tip-card">
+                    <span class="material-type yero lang-en">CORRUGATED SHEETS</span>
+                    <span class="material-type yero lang-ph" style="display: none;">YERO</span>
+                    <div class="tip-content">
+                        <h3 class="lang-en">Corrugated Metal Sheets</h3>
+                        <h3 class="lang-ph" style="display: none;">Mga Yero</h3>
+                        <p class="lang-en">Separate galvanized iron sheets from other metals. Remove any nails or attachments. Flatten sheets when possible for easier transport.</p>
+                        <p class="lang-ph" style="display: none;">Ihiwalay ang galvanized iron sheets sa ibang mga metal. Alisin ang mga pako o nakakabit. Patagin ang mga yero kung maaari para mas madaling itransport.</p>
+                        <div class="price-display">₱7.00/kg</div>
+                        <p class="price-tip lang-en">Clean, undamaged corrugated sheets maintain better value at junkshops.</p>
+                        <p class="price-tip lang-ph" style="display: none;">Ang malinis at buong yero ay may mas magandang halaga sa mga junkshop.</p>
+                    </div>
+                </div>
+
+                <!-- Batteries -->
+                <div class="tip-card">
+                    <span class="material-type battery lang-en">BATTERIES</span>
+                    <span class="material-type battery lang-ph" style="display: none;">BATERYA</span>
+                    <div class="tip-content">
+                        <h3 class="lang-en">Battery Recycling</h3>
+                        <h3 class="lang-ph" style="display: none;">Pagre-recycle ng Baterya</h3>
+                        <p class="lang-en">Handle with care - batteries contain hazardous materials. Keep terminals covered to prevent short circuits. Store in cool, dry place.</p>
+                        <p class="lang-ph" style="display: none;">Ingatan ang paghawak - ang mga baterya ay naglalaman ng mapanganib na materyales. Takpan ang terminals para maiwasan ang short circuit. Itabi sa malamig at tuyong lugar.</p>
+                        <div class="price-display">₱25.00/kg</div>
+                        <p class="price-tip lang-en">Batteries require special recycling - don't throw with regular trash.</p>
+                        <p class="price-tip lang-ph" style="display: none;">Ang mga baterya ay nangangailangan ng espesyal na pagre-recycle - huwag itapon kasama ng regular na basura.</p>
+                    </div>
+                </div>
+            </div>
+
+            <h2 class="lang-en">General Sorting Tips</h2>
+            <h2 class="lang-ph" style="display: none;">Mga Pangkalahatang Tip sa Paghihiwalay</h2>
+            <div class="tip-card" style="max-width: 800px; margin: 0 auto;">
+                <div class="tip-content">
+                    <ul style="padding-left: var(--space-lg);">
+                        <li style="margin-bottom: var(--space-sm);" class="lang-en">Always separate materials by type before bringing to the junkshop - mixed loads get the lowest prices</li>
+                        <li style="margin-bottom: var(--space-sm);" class="lang-ph" style="display: none;">Laging paghiwalayin ang mga materyales ayon sa uri bago dalhin sa junkshop - ang halo-halong dala ay may pinakamababang presyo</li>
+                        
+                        <li style="margin-bottom: var(--space-sm);" class="lang-en">Clean materials fetch higher prices - remove food residues, liquids, and non-recyclable attachments</li>
+                        <li style="margin-bottom: var(--space-sm);" class="lang-ph" style="display: none;">Ang malinis na materyales ay may mas mataas na presyo - alisin ang tira ng pagkain, likido, at mga di-recyclable na nakakabit</li>
+                        
+                        <li style="margin-bottom: var(--space-sm);" class="lang-en">Keep materials dry - wet materials weigh more but junkshops often deduct for water weight</li>
+                        <li style="margin-bottom: var(--space-sm);" class="lang-ph" style="display: none;">Panatilihing tuyo ang mga materyales - ang basang materyales ay mas mabigat ngunit ang mga junkshop ay kadalasang nagbabawas para sa bigat ng tubig</li>
+                        
+                        <li style="margin-bottom: var(--space-sm);" class="lang-en">Ask your junkshop about their specific sorting requirements as these can vary</li>
+                        <li style="margin-bottom: var(--space-sm);" class="lang-ph" style="display: none;">Tanungin ang iyong junkshop tungkol sa kanilang partikular na pangangailangan sa paghihiwalay dahil maaaring mag-iba ito</li>
+                        
+                        <li style="margin-bottom: var(--space-sm);" class="lang-en">Consider baling or compacting materials like cardboard and aluminum to save space and transport costs</li>
+                        <li style="margin-bottom: var(--space-sm);" class="lang-ph" style="display: none;">Isaalang-alang ang pagbale o pagpikpik ng mga materyales tulad ng karton at aluminum para makatipid ng espasyo at gastos sa transportasyon</li>
+                        
+                        <li class="lang-en">Build relationships with junkshop operators - consistent, clean loads may qualify for better rates</li>
+                        <li class="lang-ph" style="display: none;">Bumuo ng relasyon sa mga operator ng junkshop - ang pare-pareho at malinis na dala ay maaaring makakuha ng mas magandang presyo</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+       <footer>
+            <p class="lang-en">Remember: Proper sorting benefits both your earnings and the recycling process!</p>
+            <p class="lang-ph" style="display: none;">Tandaan: Ang wastong paghihiwalay ay nakakatulong sa iyong kita at sa proseso ng pagre-recycle!</p>
+            
+            <p style="margin-top: var(--space-sm);" class="lang-en">Prices vary by location and market conditions - check with local junkshops for current rates.</p>
+            <p style="margin-top: var(--space-sm); display: none;" class="lang-ph">Ang mga presyo ay nag-iiba ayon sa lokasyon at kondisyon ng merkado - magtanong sa lokal na junkshop para sa kasalukuyang mga presyo.</p>
+            
+            <div style="margin-top: var(--space-lg); padding-top: var(--space-sm); border-top: 1px solid rgba(255,255,255,0.2);">
+                <p style="font-size: 0.9rem;">&copy; JunkValue 2025. All rights reserved.</p>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const languageButtons = document.querySelectorAll('.language-btn');
+            
+            languageButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const lang = this.getAttribute('data-lang');
+                    
+                    // Update active button
+                    languageButtons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Show/hide language content
+                    document.querySelectorAll('.lang-en').forEach(el => {
+                        el.style.display = lang === 'en' ? 'block' : 'none';
+                    });
+                    
+                    document.querySelectorAll('.lang-ph').forEach(el => {
+                        el.style.display = lang === 'ph' ? 'block' : 'none';
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>

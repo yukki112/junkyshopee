@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Remove Labels - Junkshop Recycling Guide</title>
+    <style>
+        :root {
+            /* Color Palette */
+            --primary-color: #6A7F46;       
+            --secondary-color: #D97A41;  
+            --accent-color: #3C342C;        
+            --light-color: #F2EAD3;         
+            --lighter-color: #F9F5EB;      
+            --dark-color: #2E2B29;          
+            --text-color: #333333;          
+            --text-light: #777777;         
+            --white: #FFFFFF;
+            --black: #000000;
+            
+            --copper-color: #B87333;
+            --pet-color: #6A7F46;
+            --aluminum-color: #848482;
+            --cardboard-color: #C19A6B;
+            --steel-color: #43464B;
+            --glass-color: #5D8AA8;
+            --computer-color: #003366;
+            --label-color: #9370DB;
+            
+            --shadow-sm: 0 2px 5px rgba(0,0,0,0.1);
+            --shadow-md: 0 5px 15px rgba(0,0,0,0.1);
+            --shadow-lg: 0 10px 25px rgba(0,0,0,0.15);
+            --shadow-inset: inset 0 2px 4px rgba(0,0,0,0.05);
+            
+            --transition-fast: all 0.2s ease;
+            --transition-normal: all 0.3s ease;
+            --transition-slow: all 0.5s ease;
+            
+            --border-radius-sm: 4px;
+            --border-radius-md: 8px;
+            --border-radius-lg: 12px;
+            --border-radius-xl: 20px;
+            --border-radius-circle: 50%;
+            
+            --space-xs: 5px;
+            --space-sm: 10px;
+            --space-md: 20px;
+            --space-lg: 30px;
+            --space-xl: 40px;
+            --space-xxl: 60px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--lighter-color);
+            padding: var(--space-lg);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: var(--space-xl);
+            padding: var(--space-lg);
+            background-color: var(--primary-color);
+            color: var(--light-color);
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--shadow-md);
+            position: relative;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: var(--space-sm);
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            color: var(--secondary-color);
+            margin: var(--space-lg) 0 var(--space-md);
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: var(--space-sm);
+        }
+
+        h3 {
+            font-size: 1.4rem;
+            margin: var(--space-md) 0 var(--space-sm);
+        }
+
+        .intro {
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin: 0 auto var(--space-xl);
+            text-align: center;
+            color: var(--text-color);
+        }
+
+        .tips-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: var(--space-lg);
+            margin-bottom: var(--space-xl);
+        }
+
+        .tip-card {
+            background-color: var(--white);
+            border-radius: var(--border-radius-lg);
+            padding: var(--space-lg);
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition-normal);
+            border-top: 5px solid var(--secondary-color);
+        }
+
+        .tip-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .material-type {
+            display: inline-block;
+            padding: var(--space-xs) var(--space-sm);
+            border-radius: var(--border-radius-sm);
+            font-weight: bold;
+            font-size: 0.9rem;
+            margin-bottom: var(--space-sm);
+            color: var(--white);
+        }
+
+        .glass { background-color: var(--glass-color); }
+        .metal { background-color: var(--steel-color); }
+        .plastic { background-color: var(--pet-color); }
+        .labels { background-color: var(--label-color); }
+        .containers { background-color: var(--aluminum-color); }
+
+        .tip-content {
+            margin-bottom: var(--space-md);
+        }
+
+        .price-tip {
+            font-style: italic;
+            color: var(--secondary-color);
+            font-weight: 500;
+            padding: var(--space-sm);
+            background-color: var(--light-color);
+            border-radius: var(--border-radius-sm);
+            border-left: 3px solid var(--secondary-color);
+        }
+
+        .warning {
+            font-style: italic;
+            color: #D97A41;
+            font-weight: 500;
+            padding: var(--space-sm);
+            background-color: #FFF0F0;
+            border-radius: var(--border-radius-sm);
+            border-left: 3px solid #D97A41;
+        }
+
+        .highlight-box {
+            background-color: var(--light-color);
+            padding: var(--space-md);
+            border-radius: var(--border-radius-md);
+            margin: var(--space-lg) 0;
+            border-left: 5px solid var(--secondary-color);
+            box-shadow: var(--shadow-sm);
+        }
+
+        footer {
+            text-align: center;
+            margin-top: var(--space-xl);
+            padding: var(--space-lg);
+            background-color: var(--accent-color);
+            color: var(--light-color);
+            border-radius: var(--border-radius-lg);
+        }
+
+        /* Back Button Styles */
+        .back-button {
+            position: absolute;
+            top: var(--space-md);
+            left: var(--space-md);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: var(--space-sm) var(--space-md);
+            background-color: var(--light-color);
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+            border-radius: var(--border-radius-xl);
+            font-weight: bold;
+            text-decoration: none;
+            transition: var(--transition-normal);
+            box-shadow: var(--shadow-sm);
+            z-index: 10;
+            overflow: hidden;
+        }
+
+        .back-button:hover {
+            background-color: var(--primary-color);
+            color: var(--light-color);
+            transform: translateX(-5px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .back-button::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: var(--transition-slow);
+        }
+
+        .back-button:hover::before {
+            left: 100%;
+        }
+
+        .back-button i {
+            margin-right: var(--space-xs);
+            transition: var(--transition-fast);
+        }
+
+        .back-button:hover i {
+            transform: translateX(-3px);
+        }
+
+        @media (max-width: 768px) {
+            .tips-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            h2 {
+                font-size: 1.5rem;
+            }
+            
+            .back-button {
+                top: var(--space-sm);
+                left: var(--space-sm);
+                padding: var(--space-xs) var(--space-sm);
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <a href="../index.php" class="back-button">
+                <i class="fas fa-arrow-left"></i> Back to Main Site
+            </a>
+            <h1>Remove Labels Guide</h1>
+            <p>Increase your recycling value by properly removing labels and contaminants</p>
+        </header>
+
+        <section>
+            <p class="intro">
+                Non-recyclable labels and adhesives can contaminate recycling streams and reduce material quality. 
+                Proper label removal helps ensure your recyclables maintain maximum value at junkshops.
+            </p>
+
+            <div class="highlight-box">
+                <h3>Why Label Removal Matters</h3>
+                <p>Labels made from different materials can contaminate recycling batches. Adhesives can gum up recycling machinery. Clean, label-free materials are easier to process and often qualify for higher quality (and higher paying) recycling categories.</p>
+                <p class="price-tip">Properly prepared materials without labels can fetch 10-20% higher prices at many junkshops.</p>
+            </div>
+
+            <h2>Label Removal Techniques</h2>
+            
+            <div class="tips-grid">
+                <!-- Glass Containers -->
+                <div class="tip-card">
+                    <span class="material-type glass">GLASS CONTAINERS</span>
+                    <div class="tip-content">
+                        <h3>Glass Jars and Bottles</h3>
+                        <p>Soak in warm, soapy water to loosen labels. Use a scrub brush or plastic scraper to remove. For stubborn adhesive, try rubbing alcohol or cooking oil. Remove metal rings from bottle necks.</p>
+                        <p class="price-tip">Clean, label-free glass is more valuable and easier to sort by color.</p>
+                    </div>
+                </div>
+
+                <!-- Metal Cans -->
+                <div class="tip-card">
+                    <span class="material-type metal">METAL CANS</span>
+                    <div class="tip-content">
+                        <h3>Food and Beverage Cans</h3>
+                        <p>Most aluminum and steel can labels peel off easily after washing. For stubborn paper labels, soak in warm water. Remove plastic liners from steel cans when possible (often found in food cans).</p>
+                        <p class="price-tip">Label-free aluminum cans are worth more as they don't contaminate the melt.</p>
+                    </div>
+                </div>
+
+                <!-- Plastic Containers -->
+                <div class="tip-card">
+                    <span class="material-type plastic">PLASTIC CONTAINERS</span>
+                    <div class="tip-content">
+                        <h3>Plastic Bottles and Jugs</h3>
+                        <p>Remove plastic sleeve labels completely. Check for adhesive residue. Plastic containers with glued-on paper labels may need soaking. Remove pump mechanisms and non-plastic components.</p>
+                        <p class="warning">Plastic labels on plastic containers can contaminate recycling if not separated.</p>
+                    </div>
+                </div>
+
+                <!-- Difficult Labels -->
+                <div class="tip-card">
+                    <span class="material-type labels">DIFFICULT LABELS</span>
+                    <div class="tip-content">
+                        <h3>Stubborn Label Removal</h3>
+                        <p>For heat-resistant containers, try filling with boiling water to loosen adhesive. Use a hairdryer to warm stubborn labels. Commercial adhesive removers work but rinse thoroughly afterward.</p>
+                        <p class="price-tip">The extra effort for difficult labels pays off in higher quality materials.</p>
+                    </div>
+                </div>
+
+                <!-- General Containers -->
+                <div class="tip-card">
+                    <span class="material-type containers">GENERAL CONTAINERS</span>
+                    <div class="tip-content">
+                        <h3>Other Packaging</h3>
+                        <p>Remove all non-recyclable components: plastic windows from boxes, wax coatings from paper cartons, foil liners from bags. When in doubt, remove anything that isn't the primary material.</p>
+                        <p class="price-tip">Pure material streams command premium prices in recycling markets.</p>
+                    </div>
+                </div>
+
+                <!-- When to Leave Labels -->
+                <div class="tip-card">
+                    <span class="material-type labels">EXCEPTIONS</span>
+                    <div class="tip-content">
+                        <h3>When to Leave Labels On</h3>
+                        <p>Some labels are designed to burn off during recycling (check with local guidelines). Very small labels may be acceptable. When labels won't come off without damaging the container, it's better to recycle with label than not at all.</p>
+                        <p class="warning">Never avoid recycling just because you can't remove a label - check local guidelines.</p>
+                    </div>
+                </div>
+            </div>
+
+            <h2>Label Removal Do's and Don'ts</h2>
+            <div class="tip-card" style="max-width: 800px; margin: 0 auto;">
+                <div class="tip-content">
+                    <ul style="padding-left: var(--space-lg);">
+                        <li style="margin-bottom: var(--space-sm);"><strong>DO</strong> remove labels whenever possible to improve material quality</li>
+                        <li style="margin-bottom: var(--space-sm);"><strong>DO</strong> soak containers to loosen labels and adhesives</li>
+                        <li style="margin-bottom: var(--space-sm);"><strong>DO</strong> remove all non-recyclable components (plastic spouts, metal rings)</li>
+                        <li style="margin-bottom: var(--space-sm);"><strong>DON'T</strong> use sharp metal tools that could scratch or damage containers</li>
+                        <li style="margin-bottom: var(--space-sm);"><strong>DON'T</strong> spend excessive time on labels that won't budge</li>
+                        <li><strong>DON'T</strong> mix labeled and unlabeled materials in recycling bins</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="highlight-box" style="margin-top: var(--space-xl);">
+                <h3>Quick Label Removal Tips</h3>
+                <p><strong>For paper labels:</strong> Soak in warm, soapy water for 10-15 minutes before peeling<br>
+                <strong>For plastic labels:</strong> Look for perforations or seams to help removal<br>
+                <strong>For adhesive residue:</strong> Use cooking oil, rubbing alcohol, or commercial removers<br>
+                <strong>For heat-resistant containers:</strong> Fill with boiling water to loosen adhesive</p>
+                <p class="price-tip">Investing a few extra minutes in label removal can significantly increase your recycling profits.</p>
+            </div>
+        </section>
+
+        <footer>
+            <p>Remember: Clean, label-free materials are more valuable and easier to recycle!</p>
+            <p style="margin-top: var(--space-sm);">Proper preparation leads to better quality recycling and higher payouts at junkshops.</p>
+            <div style="margin-top: var(--space-lg); padding-top: var(--space-sm); border-top: 1px solid rgba(255,255,255,0.2);">
+                <p style="font-size: 0.9rem;">&copy; JunkValue 2025. All rights reserved.</p>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>
