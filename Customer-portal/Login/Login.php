@@ -23,8 +23,8 @@ define('FB_APP_ID', '1448117463050692');
 define('FB_APP_SECRET', '947a22c909084c5a3c57a9c66b5dc8c7');
 define('FB_REDIRECT_URI', 'https://frsm.qcprotektado.com/Customer-portal/Login/Login.php');
 
-define('RECAPTCHA_SITE_KEY', '6LeYjuorAAAAAPbR8cTtzeaLz05h_yRz2sEfsqfO');
-define('RECAPTCHA_SECRET_KEY', '6LeYjuorAAAAAGS0RH6BiwKoS-muwQyzdzFS121K');
+define('RECAPTCHA_SITE_KEY', '6LcM5u8rAAAAAAs3I-ENt3yWWTUEIRL4E1u4CObc');
+define('RECAPTCHA_SECRET_KEY', '6LcM5u8rAAAAALl8ll7eAVU4Mrka0wjdBED--ngi');
 
 $errors = [];
 $loginInput = '';
