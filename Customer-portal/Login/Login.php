@@ -23,8 +23,9 @@ define('FB_APP_ID', '1448117463050692');
 define('FB_APP_SECRET', '947a22c909084c5a3c57a9c66b5dc8c7');
 define('FB_REDIRECT_URI', 'https://frsm.qcprotektado.com/Customer-portal/Login/Login.php');
 
-define('RECAPTCHA_SITE_KEY', '6LcM5u8rAAAAAAs3I-ENt3yWWTUEIRL4E1u4CObc');
-define('RECAPTCHA_SECRET_KEY', '6LcM5u8rAAAAALl8ll7eAVU4Mrka0wjdBED--ngi');
+// Replace these lines in your constants section
+define('RECAPTCHA_SITE_KEY', '6LcYjuorAAAAAPbR8cTtzeaLz05h_yRz2sEfsqfo');
+define('RECAPTCHA_SECRET_KEY', '6LcYjuorAAAAAGS0RH6BiwKoS-muwQyzdzFS121K');
 
 $errors = [];
 $loginInput = '';
@@ -1832,7 +1833,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
             </div>
             
             <div class="recaptcha-container">
-                <div class="g-recaptcha" data-sitekey="6LcM5u8rAAAAAAs3I-ENt3yWWTUEIRL4E1u4CObc"></div>
+                <div class="g-recaptcha" data-sitekey="<?php echo RECAPTCHA_SITE_KEY; ?>"></div>
             </div>
             
             <button type="submit" name="login" class="btn-primary">
