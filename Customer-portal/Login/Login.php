@@ -23,9 +23,9 @@ define('FB_APP_ID', '1448117463050692');
 define('FB_APP_SECRET', '947a22c909084c5a3c57a9c66b5dc8c7');
 define('FB_REDIRECT_URI', 'https://frsm.qcprotektado.com/Customer-portal/Login/Login.php');
 
-// Replace these lines in your constants section
+// Fixed reCAPTCHA keys - make sure these match your Google reCAPTCHA dashboard
 define('RECAPTCHA_SITE_KEY', '6LeYjuorAAAAAPbR8cTtzeaLz05h_yRz2sEfsqfO');
-define('RECAPTCHA_SECRET_KEY', '6LcYjuorAAAAAGS0RH6BiwKoS-muwQyzdzFS121K');
+define('RECAPTCHA_SECRET_KEY', '6LeYjuorAAAAAGS0RH6BiwKoS-muwQyzdzFS121K');
 
 $errors = [];
 $loginInput = '';
@@ -432,6 +432,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
     if (!isset($_POST['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_token']) {
         $errors[] = "Invalid form submission";
     } else {
+        // Enhanced reCAPTCHA verification with better error handling
         if (isset($_POST['g-recaptcha-response']) && !empty($_POST['g-recaptcha-response'])) {
             $recaptchaResponse = $_POST['g-recaptcha-response'];
             $recaptchaUrl = 'https://www.google.com/recaptcha/api/siteverify';
@@ -441,25 +442,44 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
                 'remoteip' => $_SERVER['REMOTE_ADDR']
             ];
             
-            $recaptchaOptions = [
-                'http' => [
-                    'header' => "Content-type: application/x-www-form-urlencoded\r\n",
-                    'method' => 'POST',
-                    'content' => http_build_query($recaptchaData)
-                ]
-            ];
+            // Use cURL for more reliable API calls
+            $ch = curl_init();
+            curl_setopt_array($ch, [
+                CURLOPT_URL => $recaptchaUrl,
+                CURLOPT_POST => true,
+                CURLOPT_POSTFIELDS => http_build_query($recaptchaData),
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_SSL_VERIFYPEER => true,
+                CURLOPT_TIMEOUT => 10
+            ]);
             
-            $recaptchaContext = stream_context_create($recaptchaOptions);
-            $recaptchaResult = file_get_contents($recaptchaUrl, false, $recaptchaContext);
-            $recaptchaJson = json_decode($recaptchaResult);
+            $recaptchaResult = curl_exec($ch);
+            $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+            $curlError = curl_error($ch);
+            curl_close($ch);
             
-            if (!$recaptchaJson->success) {
-                $errors[] = "reCAPTCHA verification failed. Please try again.";
+            if ($curlError) {
+                error_log("reCAPTCHA cURL Error: " . $curlError);
+                $errors[] = "Security verification temporarily unavailable. Please try again.";
+            } elseif ($httpCode !== 200) {
+                error_log("reCAPTCHA HTTP Error: " . $httpCode . " - " . $recaptchaResult);
+                $errors[] = "Security verification failed. Please try again.";
+            } else {
+                $recaptchaJson = json_decode($recaptchaResult);
+                
+                if (!$recaptchaJson || !isset($recaptchaJson->success)) {
+                    error_log("Invalid reCAPTCHA response: " . $recaptchaResult);
+                    $errors[] = "Security verification failed. Please try again.";
+                } elseif (!$recaptchaJson->success) {
+                    $errorCodes = isset($recaptchaJson->{'error-codes'}) ? implode(', ', $recaptchaJson->{'error-codes'}) : 'Unknown error';
+                    error_log("reCAPTCHA verification failed: " . $errorCodes);
+                    $errors[] = "reCAPTCHA verification failed. Please complete the challenge again.";
+                }
+                // If success is true, reCAPTCHA passed
             }
         } else {
+            $errors[] = "Please complete the reCAPTCHA challenge.";
             $_SESSION['captcha_error'] = true;
-            header("Location: " . $_SERVER['PHP_SELF']);
-            exit();
         }
         
         if (empty($errors)) {
