@@ -52,8 +52,8 @@ if (empty($loginInput) || empty($password)) {
 }
 
 // Query: allow login with email OR username
-$stmt = $conn->prepare("SELECT id, first_name, last_name, email, username, password_hash, is_verified, user_type, is_admin 
-                        FROM users 
+$stmt = $conn->prepare("SELECT id, first_name, last_name, email, username, password_hash, is_verified
+                        FROM employees 
                         WHERE email = ? OR username = ?");
 if (!$stmt) {
     http_response_code(500);
