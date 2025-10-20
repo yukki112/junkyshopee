@@ -612,6 +612,8 @@ function updateInventory($conn, $material_id, $quantity, $action, $employee_id, 
         $default_user_id = $user_row['id'];
     }
     
+    // FIX: Check if inventory_logs table has auto-increment on id field
+    // If not, we need to handle it differently
     $query = "INSERT INTO inventory_logs 
              (inventory_item_id, user_id, action_type, quantity_change, 
              previous_stock, new_stock, reason, created_at) 
