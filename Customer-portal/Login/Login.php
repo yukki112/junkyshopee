@@ -24,7 +24,7 @@ define('FB_APP_SECRET', '947a22c909084c5a3c57a9c66b5dc8c7');
 define('FB_REDIRECT_URI', 'https://frsm.qcprotektado.com/Customer-portal/Login/Login.php');
 
 // Replace these lines in your constants section
-define('RECAPTCHA_SITE_KEY', '6LcYjuorAAAAAPbR8cTtzeaLz05h_yRz2sEfsqfo');
+define('RECAPTCHA_SITE_KEY', '6LeYjuorAAAAAPbR8cTtzeaLz05h_yRz2sEfsqfO');
 define('RECAPTCHA_SECRET_KEY', '6LcYjuorAAAAAGS0RH6BiwKoS-muwQyzdzFS121K');
 
 $errors = [];
