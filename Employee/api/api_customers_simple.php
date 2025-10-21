@@ -4,15 +4,7 @@ header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: GET');
 header('Access-Control-Allow-Headers: Content-Type');
 
-require_once '../db_connection.php';
-
-// Simple API key validation (replace with your actual validation)
-$api_key = $_GET['api_key'] ?? '';
-if ($api_key !== 'your_simple_api_key_here') {
-    http_response_code(401);
-    echo json_encode(['error' => 'Invalid API key']);
-    exit();
-}
+require_once 'db_connection.php';
 
 try {
     $query = "SELECT 

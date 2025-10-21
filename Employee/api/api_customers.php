@@ -10,22 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
     exit();
 }
 
-require_once '../db_connection.php';
-
-// API Key authentication (recommended for security)
-$api_key = $_SERVER['HTTP_API_KEY'] ?? $_GET['api_key'] ?? '';
-
-// Validate API key (you should store this securely and validate against your database)
-$valid_api_keys = ['your_secret_api_key_here', 'another_valid_key']; // Replace with your actual API keys
-
-if (!in_array($api_key, $valid_api_keys)) {
-    http_response_code(401);
-    echo json_encode([
-        'success' => false,
-        'message' => 'Invalid API key'
-    ]);
-    exit();
-}
+require_once 'db_connection.php';
 
 try {
     // Get parameters with defaults
