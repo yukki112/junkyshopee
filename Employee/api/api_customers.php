@@ -10,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
     exit();
 }
 
-require_once 'db_connection.php';
+require_once '../db_connection.php';
 
 // API Key authentication (recommended for security)
 $api_key = $_SERVER['HTTP_API_KEY'] ?? $_GET['api_key'] ?? '';
