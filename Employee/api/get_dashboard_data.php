@@ -12,12 +12,10 @@ if (!$token) {
     exit();
 }
 
-// Verify token and get employee ID (implement your token verification logic)
-// For now, we'll assume the token is valid
-$employee_id = 1; // This should come from token verification
 
+$employee_id = 1; 
 try {
-    // Get employee performance data
+
     $performance_query = "SELECT 
         sales_amount,
         items_processed,
