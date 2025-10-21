@@ -31,23 +31,26 @@ try {
     // Build the query
     $query = "SELECT 
                 u.id,
+                u.first_name,
+                u.last_name,
                 CONCAT(u.first_name, ' ', u.last_name) as customer_name,
                 u.username,
                 u.email,
                 u.phone,
                 u.user_type,
+                u.address,
+                u.referral_code,
+                u.loyalty_points,
+                u.created_at,
                 COUNT(DISTINCT t.id) as total_transactions,
                 COALESCE(SUM(t.amount), 0) as total_spent,
-                MAX(t.created_at) as last_transaction,
-                u.created_at,
-                u.updated_at
+                MAX(t.created_at) as last_transaction
               FROM users u 
               LEFT JOIN transactions t ON u.id = t.user_id 
               WHERE 1=1";
     
     $count_query = "SELECT COUNT(DISTINCT u.id) as total 
                    FROM users u 
-                   LEFT JOIN transactions t ON u.id = t.user_id 
                    WHERE 1=1";
     
     $params = [];
@@ -91,14 +94,20 @@ try {
                 ORDER BY $sort_by $sort_order 
                 LIMIT ? OFFSET ?";
     
-    $params[] = $limit;
-    $params[] = $offset;
-    $types .= "ii";
+    // Parameters for count query (without limit/offset)
+    $count_params = $params;
+    $count_types = $types;
+    
+    // Parameters for main query (with limit/offset)
+    $main_params = $params;
+    $main_params[] = $limit;
+    $main_params[] = $offset;
+    $main_types = $types . "ii";
     
     // Get total count
     $count_stmt = $conn->prepare($count_query);
-    if (!empty($where_conditions)) {
-        $count_stmt->bind_param($types, ...$params);
+    if (!empty($count_params)) {
+        $count_stmt->bind_param($count_types, ...$count_params);
     }
     $count_stmt->execute();
     $count_result = $count_stmt->get_result();
@@ -106,8 +115,8 @@ try {
     
     // Get customers data
     $stmt = $conn->prepare($query);
-    if (!empty($params)) {
-        $stmt->bind_param($types, ...$params);
+    if (!empty($main_params)) {
+        $stmt->bind_param($main_types, ...$main_params);
     }
     $stmt->execute();
     $result = $stmt->get_result();
@@ -116,16 +125,20 @@ try {
     while ($row = $result->fetch_assoc()) {
         $customers[] = [
             'id' => intval($row['id']),
+            'first_name' => $row['first_name'],
+            'last_name' => $row['last_name'],
             'customer_name' => $row['customer_name'],
             'username' => $row['username'],
             'email' => $row['email'],
             'phone' => $row['phone'],
             'user_type' => $row['user_type'],
+            'address' => $row['address'],
+            'referral_code' => $row['referral_code'],
+            'loyalty_points' => intval($row['loyalty_points']),
             'total_transactions' => intval($row['total_transactions']),
             'total_spent' => floatval($row['total_spent']),
             'last_transaction' => $row['last_transaction'],
-            'created_at' => $row['created_at'],
-            'updated_at' => $row['updated_at']
+            'created_at' => $row['created_at']
         ];
     }
     
