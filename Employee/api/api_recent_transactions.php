@@ -10,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
     exit();
 }
 
-require_once 'db_connection.php';
+require_once '../db_connection.php';
 
 try {
     // Get parameters with defaults
